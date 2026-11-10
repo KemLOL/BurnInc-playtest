@@ -4,15 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Burn Inc. · District Burn Counter</title>
-    <script type="module" crossorigin src="./assets/index-DrBenFX2.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DifyOom8.css">
+    <script type="module" crossorigin src="./assets/index-DJqn0o9j.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D26hS0iv.css">
   </head>
   <body>
     <main id="game" aria-label="Burn Inc. district burn counter">
-      <div class="topbar">
-        <span class="wordmark">Burn Inc. <span>District 04</span></span>
-        <div class="top-actions"><span id="shift-progress"></span><button id="view-switch" type="button" class="quiet" hidden>To burner</button><button id="open-menu" type="button" class="quiet" hidden>Menu</button></div>
-      </div>
       <section id="menu" class="panel-screen" aria-labelledby="menu-title">
         <article class="ticket menu-ticket">
           <p class="eyebrow">District 04 · Licensed disposal</p>
@@ -80,11 +76,10 @@
         </div>
       </section>
       <div id="home-fade" aria-hidden="true" hidden></div>
-      <section id="counter" class="counter" aria-labelledby="counter-title" hidden>
+      <section id="counter" class="counter" aria-label="Inspection counter" hidden>
         <div class="counter-layout">
           <div class="customer-station" id="customer-station">
             <div class="window" id="service-window">
-              <div class="window-sign">DISTRICT BURN COUNTER</div>
               <svg viewBox="0 0 440 330" class="customer" aria-hidden="true">
                 <path class="coat" d="M90 310 Q96 211 171 192 L254 192 Q326 213 344 310Z" fill="#34494a"/>
                 <path d="M150 198 L213 257 267 199 251 174 171 178Z" fill="#57695a"/>
@@ -95,62 +90,98 @@
                 <path d="M179 147 L188 147 M228 145 L236 145 M199 177 Q211 181 222 175" fill="none" stroke="#523a33" stroke-width="4" stroke-linecap="round"/>
                 <path d="M90 266 Q143 238 171 272 L161 292 91 300Z M325 267 Q279 244 254 276 L264 292 327 300Z" fill="#b78464"/>
               </svg>
-              <h1 id="counter-title">Service window</h1>
               <div id="dialogue-caption" hidden>
                 <p id="counter-message" aria-hidden="true"></p>
                 <p id="accessible-dialogue" class="sr-only" aria-live="polite"></p>
-                <button id="skip-dialogue" type="button" class="quiet" aria-label="Show full line" title="Show full line">»</button>
               </div>
-              <div class="booth-status">
-                <button id="call-customer" type="button" hidden>Call next customer</button>
-                <p id="booth-note" class="muted" hidden></p>
-                <p id="handoff-guide" role="status" hidden></p>
-              </div>
+              <p id="handoff-guide" class="sr-only" role="status" hidden></p>
             </div>
           </div>
-          <section class="yard-monitor" aria-labelledby="yard-title">
-            <div class="yard-header">
-              <div><p class="eyebrow">Camera 01 · District 04</p><h2 id="yard-title">Burn yard</h2></div>
-            </div>
-            <p id="household-morning" class="muted" hidden></p>
-            <svg id="yard-feed" viewBox="0 0 720 220" aria-hidden="true">
+          <section class="yard-monitor" aria-label="Burn yard camera 01">
+            <p id="yard-day-announcement" class="sr-only" role="status"></p>
+            <svg id="yard-feed" viewBox="0 0 1009 165">
               <defs>
-                <pattern id="yard-hatching" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                  <rect width="4" height="8" fill="#8d8b69"/>
+                <clipPath id="yard-crop"><rect width="1009" height="165"/></clipPath>
+                <clipPath id="yard-booth-foreground"><rect x="625" y="77" width="70" height="60"/></clipPath>
+                <path id="yard-coat" d="M-1.5-13h3l1 1v2l-1 1H3l1 2v3H2.5v1.2h-5V-4H-4v-3l1-2h1.5l-1-1v-2z" fill="currentColor"/>
+                <g id="yard-person">
+                  <path d="M-3 0h7v1h-7z" fill="#151a16" opacity=".28"/>
+                  <use href="#yard-coat"/>
+                  <path d="M-2.3-3.4h1.8V0h-2.2v-1h.4z M.5-3.4h1.8V-1h.4v1H.5z" fill="currentColor"/>
+                </g>
+                <g id="yard-step-left">
+                  <path d="M-3 0h7v1h-7z" fill="#151a16" opacity=".28"/>
+                  <use href="#yard-coat" transform="translate(0 -.35)"/>
+                  <path d="M-2.4-4h1.9v4.75h-1.9z M.5-4h1.9v3.35H.5z" fill="currentColor"/>
+                </g>
+                <g id="yard-step-right">
+                  <path d="M-3 0h7v1h-7z" fill="#151a16" opacity=".28"/>
+                  <use href="#yard-coat" transform="translate(0 -.35)"/>
+                  <path d="M-2.4-4h1.9v3.35h-1.9z M.5-4h1.9v4.75H.5z" fill="currentColor"/>
+                </g>
+                <path id="yard-side-coat" d="M-1.4-13h2.8l1 1v1.2H3v1H1.3v1h.9l.8 2.5-.7 2.4h-4.5v-1H-3V-7l1.2-1.9.4-.8-1-1v-1.4z" fill="currentColor"/>
+                <g id="yard-side-stand">
+                  <use href="#yard-side-coat"/>
+                  <path d="M-1.8-4.8h3.4V-1H3v1H-2.1v-1h.3z" fill="currentColor"/>
+                </g>
+                <g id="yard-side-step-a">
+                  <use href="#yard-side-coat" transform="translate(.2 -.35)"/>
+                  <path d="M-2.2-5.1H.2L-.2-2.2-2.4-.1H-4V-1.4h.9l1.7-1.9z M.1-5.1h2l.8 2.5.6 1.3h1V0H2.3L.6-2.2z" fill="currentColor"/>
+                </g>
+                <g id="yard-side-step-b">
+                  <use href="#yard-side-coat" transform="translate(-.1 -.55)"/>
+                  <path d="M-2.1-5.3H.1l-.3 2.1L-2.1 0h-2v-1.3h1l1.2-2.1z M.1-5.3h2.1l.5 2.1.9 1.8h.9V0H2.3L.5-2.5z" fill="currentColor"/>
+                </g>
+                <g id="yard-car">
+                  <rect x="-5.2" y="-10.7" width="12.2" height="24" rx="2.7" fill="#22241e" opacity=".38"/>
+                  <rect x="-6" y="-12" width="12" height="23" rx="2.5" fill="currentColor" stroke="#292b27" stroke-width="1"/>
+                  <path d="M-4-6h8l-.7 3.2h-6.6Z M-3.7 4.7h7.4l.5 2.5h-8.4Z" fill="#353c3c"/>
+                  <path d="M-4.4-10h1.6m5.6 0h1.6" stroke="#ddcba4" stroke-width="1.25"/>
+                  <path d="M-4.4 9.3h1.6m5.6 0h1.6" stroke="#9e5344" stroke-width="1.25"/>
+                </g>
+                <radialGradient id="yard-vignette" r="68%">
+                  <stop offset="42%" stop-color="#151b16" stop-opacity="0"/>
+                  <stop offset="100%" stop-color="#151b16" stop-opacity=".42"/>
+                </radialGradient>
+                <pattern id="yard-scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+                  <path d="M0 0.5h4" stroke="#202820" stroke-opacity=".13"/>
                 </pattern>
-                <pattern id="yard-concrete" width="36" height="36" patternUnits="userSpaceOnUse">
-                  <path d="M0 36V0H36" fill="none" stroke="#888a75" stroke-opacity=".28"/>
-                </pattern>
+                <radialGradient id="yard-firelight">
+                  <stop stop-color="#ffb553" stop-opacity=".72"/>
+                  <stop offset="100%" stop-color="#ee6a31" stop-opacity="0"/>
+                </radialGradient>
               </defs>
-              <path d="M0 0H720V220H0Z" fill="#30362d"/>
-              <path d="M20 22H699V195H20Z" fill="#666b59"/>
-              <path d="M20 22H699V195H20Z" fill="url(#yard-concrete)"/>
-              <path d="M20 22H699V111 M699 167V195H20V22" fill="none" stroke="#242b25" stroke-width="6"/>
-              <path d="M20 22H699V111 M699 167V195H20V22" fill="none" stroke="#989a79" stroke-width="2" stroke-dasharray="3 9"/>
-              <path d="M100 153H688 M450 153V104" fill="none" stroke="#a6a38a" stroke-width="2" stroke-dasharray="5 6"/>
-              <path d="M699 112V166" fill="none" stroke="#aaa382" stroke-width="9" stroke-dasharray="4 6"/>
-              <rect x="44" y="40" width="132" height="73" rx="2" fill="#43483d" stroke="#292e27" stroke-width="4"/>
-              <path d="M44 46H176 M50 83H169" stroke="#858872" stroke-width="3"/>
-              <text x="110" y="74">STORAGE</text>
-              <rect x="45" y="133" width="67" height="36" fill="#494f41" stroke="#2e332a" stroke-width="3"/>
-              <text x="79" y="155">EXIT</text>
-              <rect x="213" y="54" width="179" height="87" fill="url(#yard-hatching)"/>
-              <rect x="224" y="65" width="157" height="65" fill="#3b4036"/>
-              <rect x="251" y="80" width="103" height="31" rx="4" fill="#443930" stroke="#9b7956" stroke-width="4"/>
-              <text x="302" y="101">HEARTH</text>
-              <rect x="412" y="53" width="82" height="69" fill="#5a6656" stroke="#303c32" stroke-width="4"/>
-              <path d="M427 110H478" stroke="#ccc4a1" stroke-width="4"/>
-              <text x="453" y="91">BOOTH</text>
-              <path d="M530 130H683 M530 174H683" stroke="#99957a" stroke-width="2"/>
-              <text x="606" y="113">QUEUE</text>
-              <g id="yard-line"></g>
-              <g id="yard-visitor"><circle r="6" fill="#e1c692"/><path d="M-5 8H5" stroke="#8d6947" stroke-width="4" stroke-linecap="round"/></g>
+              <g class="yard-picture" clip-path="url(#yard-crop)" aria-hidden="true">
+                <image href="./art/burn-yard-camera-01.png" width="1009" height="165"/>
+                <g id="yard-fire" transform="translate(459 64)">
+                  <ellipse rx="13" ry="6" fill="url(#yard-firelight)"/>
+                  <g class="yard-flame">
+                    <path d="M-6 0C-8-4-3-6-4-10C-1-9 0-6 1-5C3-8 3-10 2-14C8-10 8-4 6-1C4 2-4 2-6 0Z" fill="#f78c39"/>
+                    <path d="M-3 0C-4-3 0-5 0-8C4-6 5-2 3 0C2 1-2 1-3 0Z" fill="#ffe3a0"/>
+                  </g>
+                </g>
+                <g id="yard-street-traffic"></g>
+                <g id="yard-line"></g>
+                <use id="yard-operator" href="#yard-side-stand"/>
+                <image href="./art/burn-yard-camera-01.png" width="1009" height="165" clip-path="url(#yard-booth-foreground)"/>
+                <g id="yard-departures"></g>
+                <use id="yard-visitor" href="#yard-person"/>
+              </g>
+              <rect width="1009" height="165" fill="url(#yard-vignette)"/>
+              <rect width="1009" height="165" fill="url(#yard-scanlines)"/>
+              <foreignObject x="622" y="77" width="72" height="37">
+                <button xmlns="http://www.w3.org/1999/xhtml" id="call-customer" class="yard-action" type="button" aria-label="Call next customer" hidden></button>
+              </foreignObject>
+              <foreignObject x="26" y="18" width="72" height="60">
+                <button xmlns="http://www.w3.org/1999/xhtml" id="counter-action" class="yard-action" type="button" aria-label="Go home" hidden></button>
+              </foreignObject>
             </svg>
+            <div id="yard-day-card" aria-hidden="true" hidden><span id="yard-day-title"></span></div>
           </section>
           <div id="service-desk">
             <div id="document-surface" aria-label="Document surface">
-              <div id="order-delivery" class="document-bay"><span class="bay-label">01 · Service hatch</span><i id="hatch-slot" aria-hidden="true"></i><span>Customer slot</span></div>
-              <div id="order-review" class="document-bay"><span class="bay-label">02 · Inspection surface</span><span>Review documents here</span>
+              <div id="order-delivery" class="document-bay"><i id="hatch-slot" aria-hidden="true"></i></div>
+              <div id="order-review" class="document-bay">
                 <div id="collection-station" aria-label="District collection" hidden>
                   <button id="collection-sleeve" class="quiet" type="button">Take a sleeve</button>
                   <div id="collection-slot">
@@ -194,13 +225,10 @@
                 <div class="ledger-pages">
                   <ul id="ledger-rows"></ul>
                   <p id="ledger-total"></p>
-                  <div id="ledger-cleanup" hidden>
-                    <p id="cleanup-status" role="status"></p>
-                    <button id="close-sweep" class="quiet" type="button">Go sweep the burner</button>
-                  </div>
                 </div>
               </section>
-              <article id="work-order" class="desk-document receipt" aria-label="Disposal order" hidden>
+              <article id="work-order" class="desk-document receipt customer-paper" data-compact="true" aria-label="Disposal order" hidden>
+                <span class="paper-preview" aria-hidden="true">Order</span>
                 <span class="receipt-station">D04 · DISPOSAL ORDER</span>
                 <strong id="work-order-customer"></strong>
                 <span id="work-order-load"></span>
@@ -217,42 +245,41 @@
                 <span class="sleeve-heading">District collection</span>
                 <strong id="sleeve-label">Empty sleeve</strong>
               </article>
-              <div id="receipt" class="desk-document receipt" role="group" tabindex="0" aria-label="Disposal receipt. Use arrow keys to move it." hidden>
+              <div id="receipt" class="desk-document receipt customer-paper" role="group" tabindex="0" aria-label="Disposal receipt. Use arrow keys to move it." hidden>
+                <span class="paper-preview" aria-hidden="true">Receipt</span>
                 <span class="receipt-station">D04 · DISPOSAL RECEIPT</span>
                 <span class="receipt-stamp-box" aria-hidden="true">Stamp here</span>
                 <span id="ink-mark" hidden>D04 · CERTIFIED</span>
                 <span id="receipt-id"></span><strong id="receipt-load"></strong><span id="receipt-result"></span>
               </div>
+              <span id="paper-handoff-label" aria-hidden="true" hidden>Give</span>
             </div>
             <div class="desk-lower">
               <div class="desk-intake">
                 <button class="intake-well" id="take-load" type="button" disabled>
-                  <span class="eyebrow">01 · Receiving tray</span>
                   <span id="intake-load" data-empty="true">
                     <span class="intake-object" aria-hidden="true"></span>
                     <span id="intake-label"></span>
                     <span class="intake-prompt">Take to burner →</span>
                   </span>
                 </button>
-                <div class="desk-actions" id="intake-actions"><button id="counter-action" type="button" hidden>Back to burner</button><button id="review-char" class="quiet" type="button" hidden>Back to burner</button><button id="open-supplies" class="quiet" type="button" hidden>Supplies</button></div>
+                <div class="desk-actions"><button id="open-supplies" class="quiet" type="button" hidden>Supplies</button></div>
                 <button id="buy-hearth" class="quiet" type="button" hidden>Install wide hearth · 14 credits</button>
               </div>
               <div class="desk-tools">
                 <div class="desk-instruments">
                   <div class="desk-clock" aria-label="District 04 shift clock">
+                    <span id="desk-clock-face" aria-hidden="true"><i></i><i></i></span>
                     <span id="desk-date">Day 01</span>
-                    <time id="desk-time" datetime="08:00">08:00</time>
+                    <time id="desk-time" class="sr-only" datetime="08:00">08:00</time>
                   </div>
-                  <button id="register-dock" class="book-slot quiet" type="button" aria-expanded="false" aria-controls="desk-register">Disposal rules</button>
-                  <button id="ledger-dock" class="book-slot quiet" type="button" aria-expanded="false" aria-controls="ledger">Shift ledger</button>
-                  <div id="closing-actions"></div>
-                </div>
-                <div class="desk-notices">
-                  <div class="paper-controls">
-                    <button id="return-paperwork" type="button" class="quiet" hidden>Return paperwork</button>
-                    <button id="move-order" type="button" class="quiet" hidden>Move order to bench</button>
-                  </div>
-                  <p id="stamp-guide" class="muted" role="status" hidden></p>
+                  <button id="register-dock" class="book-slot" type="button" aria-label="Disposal rules" title="Disposal rules" aria-expanded="false" aria-controls="desk-register"></button>
+                  <button id="ledger-dock" class="book-slot" type="button" aria-label="Shift ledger" title="Shift ledger" aria-expanded="false" aria-controls="ledger"></button>
+                  <button id="receipt-printer" type="button" aria-label="Print receipt" aria-controls="receipt" disabled>
+                    <span class="receipt-printer-mouth" aria-hidden="true"></span>
+                    <span class="receipt-printer-wiring" aria-hidden="true"></span>
+                    <span class="receipt-printer-switch" aria-hidden="true"></span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -261,25 +288,40 @@
       </section>
       <section id="burner" class="burner-ui" aria-label="Burner controls" hidden>
         <div class="order" id="order">
-          <p class="eyebrow" id="order-title"></p>
-          <p class="muted" id="box-count"></p>
-          <div id="box-items" class="box-items" aria-label="Items in the box"></div>
-          <p id="tray-count" class="bulletin" hidden></p>
-          <div class="order-actions">
-            <button id="drop" type="button">Drop <kbd>C</kbd></button>
-            <button id="bell" class="quiet" type="button" disabled>Finalize request</button>
+          <div class="burner-slot-row">
+            <div id="box-items" class="box-items" aria-label="Items in the box"></div>
+            <button id="kindling" class="box-item" type="button" data-kind="kindling" aria-label="Wood wool" hidden><span class="box-item-art" aria-hidden="true"></span><span class="box-item-count" aria-hidden="true"></span></button>
+            <button id="back-to-counter" type="button" aria-label="Back to counter (Q)" title="Back to counter (Q)">
+              <svg viewBox="0 0 140 120" aria-hidden="true">
+                <path class="return-arrow-face" d="M5 29H73V6L134 60 73 114V91H5Z"/>
+                <path class="return-arrow-bevel" d="M11 84V35H79V20L124 60"/>
+              </svg>
+              <kbd aria-hidden="true">Q</kbd>
+            </button>
           </div>
-          <div class="order-actions extras">
+          <div class="burner-slot-actions">
+            <button id="drop" type="button"><kbd>C</kbd> Drop</button>
             <button id="tip-box" class="quiet" type="button" hidden>Tip whole carton</button>
-            <button id="sweep" class="quiet" type="button" aria-pressed="false">Pick up brush</button>
-            <button id="kindling" class="quiet" type="button">Drop wood wool · 0</button>
           </div>
-          <button id="tray-action" type="button" class="quiet" hidden>Return sealed sheet to burner</button>
-          <p id="inspection" class="muted" aria-live="off"></p>
-          <p id="job-status" role="status">Drop the lid from Mara’s box.</p>
         </div>
-        <button id="brush-dock" class="quiet" type="button" aria-label="Pick up or put down brush" aria-pressed="false"><span class="dock-handle" aria-hidden="true"></span><span class="dock-bristles" aria-hidden="true"></span><span>Brush</span></button>
-        <aside id="physical-tray" aria-label="Set-aside tray" hidden><strong>Set-aside tray</strong><p id="tray-hint">Carry a cool item here</p><div id="tray-items"></div></aside>
+        <button id="brush-dock" type="button" aria-label="Pick up or put down brush (B)" title="Brush (B)" aria-pressed="false">
+          <svg viewBox="0 0 60 60" aria-hidden="true">
+            <g transform="translate(30 30) rotate(37)">
+              <path d="M-3-23Q0-27 3-23L4 3H-4Z" fill="#984e39"/>
+              <path d="M-2-22-1 2" stroke="#cb7a53" stroke-width="1.5"/>
+              <path d="M-6 2H6v9H-6Z" fill="#92968a"/>
+              <path d="M-5 4H5M-5 9H5" stroke="#c3c4b3"/>
+              <path d="M-6 11H6L8 23 3 22 0 24-4 22-8 23Z" fill="#b59a6f"/>
+              <path d="M-4 12-5 21M0 12V22M4 12l2 9" stroke="#635541"/>
+            </g>
+          </svg>
+        </button>
+        <aside id="physical-tray" aria-label="Set-aside tray" hidden>
+          <strong>Set aside</strong><div id="tray-items"></div>
+          <button id="tray-action" type="button" class="quiet" hidden aria-label="Return blue-sealed sheet to burner" title="Return blue-sealed sheet to burner">Blue seal · at bench</button>
+        </aside>
+        <p id="inspection" class="muted"></p>
+        <p id="job-status" class="sr-only" role="status"></p>
         <p id="burner-help" class="help">Hold left click to light · Shift-click to lift · Ctrl-click to slide</p>
       </section>
       <p id="game-error" class="error" role="alert" hidden>Could not start the burner. Check that WebGL is available.</p>
