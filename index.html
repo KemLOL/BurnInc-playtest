@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Burn Inc. · District Burn Counter</title>
+    <script type="module" crossorigin src="./assets/index-CZoZ89ou.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DifyOom8.css">
+  </head>
+  <body>
+    <main id="game" aria-label="Burn Inc. district burn counter">
+      <div class="topbar">
+        <span class="wordmark">Burn Inc. <span>District 04</span></span>
+        <div class="top-actions"><span id="shift-progress"></span><button id="view-switch" type="button" class="quiet" hidden>To burner</button><button id="open-menu" type="button" class="quiet" hidden>Menu</button></div>
+      </div>
+      <section id="menu" class="panel-screen" aria-labelledby="menu-title">
+        <article class="ticket menu-ticket">
+          <p class="eyebrow">District 04 · Licensed disposal</p>
+          <h1 id="menu-title">Burn Inc.</h1>
+          <p class="muted">Every fire has to have a witness.</p>
+          <div class="menu-actions">
+            <button id="continue" type="button">Start shift</button>
+            <button id="sandbox" class="quiet" type="button">Sandbox</button>
+            <button id="settings-button" class="quiet" type="button">Settings</button>
+            <button id="restart" class="quiet" type="button" hidden>Restart campaign</button>
+          </div>
+          <p id="menu-note" class="muted">Receipts and household accounts save your progress on this browser.</p>
+        </article>
+      </section>
+      <section id="supplies" class="panel-screen" aria-labelledby="supplies-title" hidden>
+        <article class="ticket menu-ticket">
+          <p class="eyebrow">District stores · Shelf 01</p><h1 id="supplies-title">Supply shop</h1>
+          <div class="supply-card"><span class="wool-block" aria-hidden="true"></span><div><strong>Pressed wood wool</strong><p class="muted">Light a block and feed your next load into the flame.</p></div></div>
+          <p id="supply-stock" class="muted"></p>
+          <div class="menu-actions"><button id="buy-kindling" type="button">Buy 3 blocks · 2 credits</button><button id="supplies-back" class="quiet" type="button">Back to work</button></div>
+        </article>
+      </section>
+      <section id="settings" class="panel-screen" aria-labelledby="settings-title" hidden>
+        <article class="ticket menu-ticket">
+          <p class="eyebrow">Counter preferences</p><h1 id="settings-title">Settings</h1>
+          <div class="settings-fields">
+            <label for="volume">Sound effects <output id="volume-value" for="volume"></output></label>
+            <input id="volume" type="range" min="0" max="100" step="1">
+            <label for="zoom">Burner framing</label>
+            <select id="zoom"><option value="close">Close</option><option value="roomy">More room</option></select>
+            <label for="exam-count">Exam job · individual sheets</label>
+            <select id="exam-count"><option>15</option><option>30</option><option>50</option></select>
+            <label class="checkbox"><input id="reduced" type="checkbox"> Fewer sparks</label>
+          </div>
+          <button id="settings-back" type="button">Back to menu</button>
+        </article>
+      </section>
+      <section id="home" class="home-screen" aria-labelledby="home-title" hidden>
+        <div class="home-content">
+          <header class="home-heading">
+            <p id="home-day" class="eyebrow">End of day 1</p>
+            <h1 id="home-title">Home</h1>
+            <p class="muted">District 04 · Residential block</p>
+          </header>
+          <div class="home-columns">
+            <section class="home-accounts" aria-labelledby="home-accounts-title">
+              <h2 id="home-accounts-title">Household account</h2>
+              <dl>
+                <div><dt>Savings</dt><dd id="home-savings"></dd></div>
+                <div><dt>Salary <small>after fines</small></dt><dd id="home-salary"></dd></div>
+                <div id="home-work-costs" hidden><dt>Work expenses</dt><dd id="home-work-spending"></dd></div>
+                <div class="home-rent"><dt>Rent <small>due tonight</small></dt><dd id="home-rent"></dd></div>
+              </dl>
+              <label class="home-choice"><input id="home-food" type="checkbox"> <span>Food</span><span id="home-food-price"></span></label>
+              <label class="home-choice"><input id="home-heat" type="checkbox"> <span>Heat</span><span id="home-heat-price"></span></label>
+              <div class="home-total"><strong>Carry forward</strong><output id="home-balance" aria-live="polite"></output></div>
+              <p id="home-budget-note" class="muted"></p>
+            </section>
+            <section class="home-household" aria-labelledby="home-household-title">
+              <h2 id="home-household-title">Household</h2>
+              <ul id="home-members"></ul>
+            </section>
+          </div>
+          <div class="home-actions"><button id="home-sleep" type="button">Sleep</button></div>
+        </div>
+      </section>
+      <div id="home-fade" aria-hidden="true" hidden></div>
+      <section id="counter" class="counter" aria-labelledby="counter-title" hidden>
+        <div class="counter-layout">
+          <div class="customer-station" id="customer-station">
+            <div class="window" id="service-window">
+              <div class="window-sign">DISTRICT BURN COUNTER</div>
+              <svg viewBox="0 0 440 330" class="customer" aria-hidden="true">
+                <path class="coat" d="M90 310 Q96 211 171 192 L254 192 Q326 213 344 310Z" fill="#34494a"/>
+                <path d="M150 198 L213 257 267 199 251 174 171 178Z" fill="#57695a"/>
+                <path d="M170 185 L170 126 258 128 256 187 Q217 224 170 185Z" fill="#b78464"/>
+                <path d="M146 149 Q125 52 206 50 Q287 49 273 156 L250 123 Q202 127 163 111 L162 158Z" fill="#332b2c"/>
+                <path class="cap" d="M139 92 Q141 42 211 40 Q271 42 278 101 Q220 77 139 92Z" fill="#a36b46"/>
+                <path d="M137 91 Q211 79 286 101" fill="none" stroke="#c0865a" stroke-width="10"/>
+                <path d="M179 147 L188 147 M228 145 L236 145 M199 177 Q211 181 222 175" fill="none" stroke="#523a33" stroke-width="4" stroke-linecap="round"/>
+                <path d="M90 266 Q143 238 171 272 L161 292 91 300Z M325 267 Q279 244 254 276 L264 292 327 300Z" fill="#b78464"/>
+              </svg>
+              <h1 id="counter-title">Service window</h1>
+              <div id="dialogue-caption" hidden>
+                <p id="counter-message" aria-hidden="true"></p>
+                <p id="accessible-dialogue" class="sr-only" aria-live="polite"></p>
+                <button id="skip-dialogue" type="button" class="quiet" aria-label="Show full line" title="Show full line">»</button>
+              </div>
+              <div class="booth-status">
+                <button id="call-customer" type="button" hidden>Call next customer</button>
+                <p id="booth-note" class="muted" hidden></p>
+                <p id="handoff-guide" role="status" hidden></p>
+              </div>
+            </div>
+          </div>
+          <section class="yard-monitor" aria-labelledby="yard-title">
+            <div class="yard-header">
+              <div><p class="eyebrow">Camera 01 · District 04</p><h2 id="yard-title">Burn yard</h2></div>
+            </div>
+            <p id="household-morning" class="muted" hidden></p>
+            <svg id="yard-feed" viewBox="0 0 720 220" aria-hidden="true">
+              <defs>
+                <pattern id="yard-hatching" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect width="4" height="8" fill="#8d8b69"/>
+                </pattern>
+                <pattern id="yard-concrete" width="36" height="36" patternUnits="userSpaceOnUse">
+                  <path d="M0 36V0H36" fill="none" stroke="#888a75" stroke-opacity=".28"/>
+                </pattern>
+              </defs>
+              <path d="M0 0H720V220H0Z" fill="#30362d"/>
+              <path d="M20 22H699V195H20Z" fill="#666b59"/>
+              <path d="M20 22H699V195H20Z" fill="url(#yard-concrete)"/>
+              <path d="M20 22H699V111 M699 167V195H20V22" fill="none" stroke="#242b25" stroke-width="6"/>
+              <path d="M20 22H699V111 M699 167V195H20V22" fill="none" stroke="#989a79" stroke-width="2" stroke-dasharray="3 9"/>
+              <path d="M100 153H688 M450 153V104" fill="none" stroke="#a6a38a" stroke-width="2" stroke-dasharray="5 6"/>
+              <path d="M699 112V166" fill="none" stroke="#aaa382" stroke-width="9" stroke-dasharray="4 6"/>
+              <rect x="44" y="40" width="132" height="73" rx="2" fill="#43483d" stroke="#292e27" stroke-width="4"/>
+              <path d="M44 46H176 M50 83H169" stroke="#858872" stroke-width="3"/>
+              <text x="110" y="74">STORAGE</text>
+              <rect x="45" y="133" width="67" height="36" fill="#494f41" stroke="#2e332a" stroke-width="3"/>
+              <text x="79" y="155">EXIT</text>
+              <rect x="213" y="54" width="179" height="87" fill="url(#yard-hatching)"/>
+              <rect x="224" y="65" width="157" height="65" fill="#3b4036"/>
+              <rect x="251" y="80" width="103" height="31" rx="4" fill="#443930" stroke="#9b7956" stroke-width="4"/>
+              <text x="302" y="101">HEARTH</text>
+              <rect x="412" y="53" width="82" height="69" fill="#5a6656" stroke="#303c32" stroke-width="4"/>
+              <path d="M427 110H478" stroke="#ccc4a1" stroke-width="4"/>
+              <text x="453" y="91">BOOTH</text>
+              <path d="M530 130H683 M530 174H683" stroke="#99957a" stroke-width="2"/>
+              <text x="606" y="113">QUEUE</text>
+              <g id="yard-line"></g>
+              <g id="yard-visitor"><circle r="6" fill="#e1c692"/><path d="M-5 8H5" stroke="#8d6947" stroke-width="4" stroke-linecap="round"/></g>
+            </svg>
+          </section>
+          <div id="service-desk">
+            <div id="document-surface" aria-label="Document surface">
+              <div id="order-delivery" class="document-bay"><span class="bay-label">01 · Service hatch</span><i id="hatch-slot" aria-hidden="true"></i><span>Customer slot</span></div>
+              <div id="order-review" class="document-bay"><span class="bay-label">02 · Inspection surface</span><span>Review documents here</span>
+                <div id="collection-station" aria-label="District collection" hidden>
+                  <button id="collection-sleeve" class="quiet" type="button">Take a sleeve</button>
+                  <div id="collection-slot">
+                    <span class="filing-arrow" aria-hidden="true">➜</span>
+                    <span>Slide filing here</span>
+                    <span class="filing-arrow" aria-hidden="true">➜</span>
+                  </div>
+                  <p id="collection-guide" class="sr-only" role="status"></p>
+                </div>
+                <aside class="citation-printer" aria-label="District notice printer">
+                  <div class="printer-slot" aria-hidden="true">DISTRICT NOTICE PRINTER</div>
+                  <article id="citation" class="citation-slip" hidden>
+                    <span id="citation-code"></span>
+                    <strong id="citation-heading"></strong>
+                    <p id="citation-reason"></p>
+                    <span id="citation-balance"></span>
+                  </article>
+                  <p id="citation-announcement" class="sr-only" role="status"></p>
+                </aside>
+                <button id="stamp-toggle" type="button" class="quiet" aria-label="Extend stamp rail" title="Extend stamp rail (A)" aria-keyshortcuts="A" aria-expanded="false" aria-controls="stamp-rail"><span aria-hidden="true"></span></button>
+                <div class="stamp-channel">
+                  <div id="stamp-rail" class="stamp-track" inert>
+                    <span id="stamp-impact" aria-hidden="true"></span>
+                    <button id="stamp" type="button" aria-label="Pull stamp handle (S)" disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">CERTIFY <kbd>S</kbd></span></button>
+                  </div>
+                </div>
+              </div>
+              <aside id="desk-register" class="desk-document desk-manual" aria-labelledby="disposal-rules-title" hidden>
+                <span class="desk-index">DISTRICT 04 · OPERATOR COPY</span>
+                <strong id="disposal-rules-title">Disposal rules</strong>
+                <ol>
+                  <li>Receive the load.</li>
+                  <li>Check for blue-sealed sheets. See the collection rule below.</li>
+                  <li>Process the remaining items as listed.</li>
+                  <li>Certify and return the receipt.</li>
+                </ol>
+                <p class="manual-seal"><b>Blue-sealed sheets</b><br>Sleeve and file for district collection.</p>
+              </aside>
+              <section id="ledger" class="desk-document ledger-book" aria-label="Shift ledger" hidden>
+                <h2>Shift ledger</h2>
+                <div class="ledger-pages">
+                  <ul id="ledger-rows"></ul>
+                  <p id="ledger-total"></p>
+                  <div id="ledger-cleanup" hidden>
+                    <p id="cleanup-status" role="status"></p>
+                    <button id="close-sweep" class="quiet" type="button">Go sweep the burner</button>
+                  </div>
+                </div>
+              </section>
+              <article id="work-order" class="desk-document receipt" aria-label="Disposal order" hidden>
+                <span class="receipt-station">D04 · DISPOSAL ORDER</span>
+                <strong id="work-order-customer"></strong>
+                <span id="work-order-load"></span>
+                <span id="work-order-request"></span>
+              </article>
+              <article id="desk-seal" class="desk-document seal-sheet" aria-label="Blue-sealed document" aria-describedby="collection-guide" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown" tabindex="0" hidden>
+                <span class="receipt-station">D04 · DISTRICT RECORD</span>
+                <strong>Blue-sealed sheet</strong>
+                <span class="seal-sheet-lines" aria-hidden="true"></span>
+                <span class="seal-emblem" aria-hidden="true">04</span>
+              </article>
+              <article id="desk-sleeve" class="desk-document collection-sleeve" aria-label="District collection sleeve" aria-describedby="collection-guide" hidden>
+                <span class="sleeve-mouth" aria-hidden="true"></span>
+                <span class="sleeve-heading">District collection</span>
+                <strong id="sleeve-label">Empty sleeve</strong>
+              </article>
+              <div id="receipt" class="desk-document receipt" role="group" tabindex="0" aria-label="Disposal receipt. Use arrow keys to move it." hidden>
+                <span class="receipt-station">D04 · DISPOSAL RECEIPT</span>
+                <span class="receipt-stamp-box" aria-hidden="true">Stamp here</span>
+                <span id="ink-mark" hidden>D04 · CERTIFIED</span>
+                <span id="receipt-id"></span><strong id="receipt-load"></strong><span id="receipt-result"></span>
+              </div>
+            </div>
+            <div class="desk-lower">
+              <div class="desk-intake">
+                <button class="intake-well" id="take-load" type="button" disabled>
+                  <span class="eyebrow">01 · Receiving tray</span>
+                  <span id="intake-load" data-empty="true">
+                    <span class="intake-object" aria-hidden="true"></span>
+                    <span id="intake-label"></span>
+                    <span class="intake-prompt">Take to burner →</span>
+                  </span>
+                </button>
+                <div class="desk-actions" id="intake-actions"><button id="counter-action" type="button" hidden>Back to burner</button><button id="review-char" class="quiet" type="button" hidden>Back to burner</button><button id="open-supplies" class="quiet" type="button" hidden>Supplies</button></div>
+                <button id="buy-hearth" class="quiet" type="button" hidden>Install wide hearth · 14 credits</button>
+              </div>
+              <div class="desk-tools">
+                <div class="desk-instruments">
+                  <div class="desk-clock" aria-label="District 04 shift clock">
+                    <span id="desk-date">Day 01</span>
+                    <time id="desk-time" datetime="08:00">08:00</time>
+                  </div>
+                  <button id="register-dock" class="book-slot quiet" type="button" aria-expanded="false" aria-controls="desk-register">Disposal rules</button>
+                  <button id="ledger-dock" class="book-slot quiet" type="button" aria-expanded="false" aria-controls="ledger">Shift ledger</button>
+                  <div id="closing-actions"></div>
+                </div>
+                <div class="desk-notices">
+                  <div class="paper-controls">
+                    <button id="return-paperwork" type="button" class="quiet" hidden>Return paperwork</button>
+                    <button id="move-order" type="button" class="quiet" hidden>Move order to bench</button>
+                  </div>
+                  <p id="stamp-guide" class="muted" role="status" hidden></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="burner" class="burner-ui" aria-label="Burner controls" hidden>
+        <div class="order" id="order">
+          <p class="eyebrow" id="order-title"></p>
+          <p class="muted" id="box-count"></p>
+          <div id="box-items" class="box-items" aria-label="Items in the box"></div>
+          <p id="tray-count" class="bulletin" hidden></p>
+          <div class="order-actions">
+            <button id="drop" type="button">Drop <kbd>C</kbd></button>
+            <button id="bell" class="quiet" type="button" disabled>Finalize request</button>
+          </div>
+          <div class="order-actions extras">
+            <button id="tip-box" class="quiet" type="button" hidden>Tip whole carton</button>
+            <button id="sweep" class="quiet" type="button" aria-pressed="false">Pick up brush</button>
+            <button id="kindling" class="quiet" type="button">Drop wood wool · 0</button>
+          </div>
+          <button id="tray-action" type="button" class="quiet" hidden>Return sealed sheet to burner</button>
+          <p id="inspection" class="muted" aria-live="off"></p>
+          <p id="job-status" role="status">Drop the lid from Mara’s box.</p>
+        </div>
+        <button id="brush-dock" class="quiet" type="button" aria-label="Pick up or put down brush" aria-pressed="false"><span class="dock-handle" aria-hidden="true"></span><span class="dock-bristles" aria-hidden="true"></span><span>Brush</span></button>
+        <aside id="physical-tray" aria-label="Set-aside tray" hidden><strong>Set-aside tray</strong><p id="tray-hint">Carry a cool item here</p><div id="tray-items"></div></aside>
+        <p id="burner-help" class="help">Hold left click to light · Shift-click to lift · Ctrl-click to slide</p>
+      </section>
+      <p id="game-error" class="error" role="alert" hidden>Could not start the burner. Check that WebGL is available.</p>
+    </main>
+  </body>
+</html>
+
+
