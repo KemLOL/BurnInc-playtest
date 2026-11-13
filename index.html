@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Burn Inc. · District Burn Counter</title>
-    <script type="module" crossorigin src="./assets/index-B-hYUfd0.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DJ_uIpxa.css">
+    <script type="module" crossorigin src="./assets/index-8o-pk1KD.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-GGNMUfb8.css">
   </head>
   <body>
     <main id="game" aria-label="Burn Inc. district burn counter">
@@ -282,17 +282,18 @@
                     <span></span>
                   </article>
                 </template>
-                <button id="stamp-toggle" type="button" class="quiet" aria-label="Extend stamp rail" title="Extend stamp rail (A)" aria-keyshortcuts="A" aria-expanded="false" aria-controls="stamp-rail"><span aria-hidden="true"></span></button>
+                <button id="stamp-toggle" type="button" class="quiet" aria-label="Extend stamp rail" title="Extend stamp rail (A)" aria-keyshortcuts="A" aria-expanded="false" aria-controls="stamp-rail"><span aria-hidden="true"></span><kbd aria-hidden="true">A</kbd></button>
                 <div class="stamp-channel">
                   <div id="stamp-rail" class="stamp-track" inert>
                     <div class="stamp-bay stamp-bay-spare" id="reject-bay">
                       <span id="reject-impact" class="stamp-guide" aria-hidden="true" hidden></span>
-                      <button id="reject-stamp" type="button" class="desk-stamp" aria-label="Reject disposal request" hidden disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">REJECT</span></button>
+                      <button id="reject-stamp" type="button" class="desk-stamp" aria-label="Reject disposal request (S)" aria-keyshortcuts="S" hidden disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">REJECT <kbd>S</kbd></span></button>
                     </div>
                     <div class="stamp-bay">
                       <span id="stamp-impact" class="stamp-guide" aria-hidden="true"></span>
-                      <button id="stamp" class="desk-stamp" type="button" aria-label="Pull stamp handle (S)" disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">CERTIFY <kbd>S</kbd></span></button>
+                      <button id="stamp" class="desk-stamp" type="button" aria-label="Pull stamp handle (D)" aria-keyshortcuts="D" disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">CERTIFY <kbd>D</kbd></span></button>
                     </div>
+                    <div class="stamp-rail-support" aria-hidden="true"></div>
                   </div>
                 </div>
               </div>
@@ -445,6 +446,13 @@
       <section id="burner" class="burner-ui" aria-label="Burner controls" hidden>
         <div class="order" id="order">
           <div class="burner-slot-row">
+            <button id="burner-accept-load" class="intake-well" type="button" hidden disabled>
+              <span id="burner-intake-load">
+                <span class="intake-object" aria-hidden="true"></span>
+                <span class="burner-load-name"></span>
+                <strong>Accept load</strong>
+              </span>
+            </button>
             <div id="box-items" class="box-items" aria-label="Items in the box"></div>
             <button id="kindling" class="box-item" type="button" data-kind="kindling" aria-label="Wood wool" hidden><span class="box-item-art" aria-hidden="true"></span><span class="box-item-count" aria-hidden="true"></span></button>
             <button id="back-to-counter" type="button" aria-label="Back to counter (Q)" title="Back to counter (Q)">
