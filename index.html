@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Burn Inc. · District Burn Counter</title>
-    <script type="module" crossorigin src="./assets/index-DJqn0o9j.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D26hS0iv.css">
+    <script type="module" crossorigin src="/BurnInc-playtest/assets/index-DT8q6lV1.js"></script>
+    <link rel="stylesheet" crossorigin href="/BurnInc-playtest/assets/index-DJ_uIpxa.css">
   </head>
   <body>
     <main id="game" aria-label="Burn Inc. district burn counter">
@@ -18,6 +18,7 @@
             <button id="continue" type="button">Start shift</button>
             <button id="sandbox" class="quiet" type="button">Sandbox</button>
             <button id="settings-button" class="quiet" type="button">Settings</button>
+            <button id="skip-shift" class="quiet" type="button" hidden>Dev · Skip day (Shift+P)</button>
             <button id="restart" class="quiet" type="button" hidden>Restart campaign</button>
           </div>
           <p id="menu-note" class="muted">Receipts and household accounts save your progress on this browser.</p>
@@ -39,6 +40,12 @@
             <input id="volume" type="range" min="0" max="100" step="1">
             <label for="zoom">Burner framing</label>
             <select id="zoom"><option value="close">Close</option><option value="roomy">More room</option></select>
+            <label for="document-date-format">Document dates</label>
+            <select id="document-date-format">
+              <option value="iso">Year first (2007.04.07)</option>
+              <option value="eu">European (07.04.2007)</option>
+              <option value="us">American (04/07/2007)</option>
+            </select>
             <label for="exam-count">Exam job · individual sheets</label>
             <select id="exam-count"><option>15</option><option>30</option><option>50</option></select>
             <label class="checkbox"><input id="reduced" type="checkbox"> Fewer sparks</label>
@@ -79,17 +86,37 @@
       <section id="counter" class="counter" aria-label="Inspection counter" hidden>
         <div class="counter-layout">
           <div class="customer-station" id="customer-station">
-            <div class="window" id="service-window">
-              <svg viewBox="0 0 440 330" class="customer" aria-hidden="true">
-                <path class="coat" d="M90 310 Q96 211 171 192 L254 192 Q326 213 344 310Z" fill="#34494a"/>
-                <path d="M150 198 L213 257 267 199 251 174 171 178Z" fill="#57695a"/>
-                <path d="M170 185 L170 126 258 128 256 187 Q217 224 170 185Z" fill="#b78464"/>
-                <path d="M146 149 Q125 52 206 50 Q287 49 273 156 L250 123 Q202 127 163 111 L162 158Z" fill="#332b2c"/>
-                <path class="cap" d="M139 92 Q141 42 211 40 Q271 42 278 101 Q220 77 139 92Z" fill="#a36b46"/>
-                <path d="M137 91 Q211 79 286 101" fill="none" stroke="#c0865a" stroke-width="10"/>
-                <path d="M179 147 L188 147 M228 145 L236 145 M199 177 Q211 181 222 175" fill="none" stroke="#523a33" stroke-width="4" stroke-linecap="round"/>
-                <path d="M90 266 Q143 238 171 272 L161 292 91 300Z M325 267 Q279 244 254 276 L264 292 327 300Z" fill="#b78464"/>
+            <div class="window" id="service-window" data-monitor-off>
+              <div id="monitor-blackout" aria-hidden="true"></div>
+              <svg class="booth-filter-defs" width="0" height="0" aria-hidden="true">
+                <defs>
+                  <filter id="booth-scan-distortion" x="-3%" y="-3%" width="106%" height="106%"
+                    primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+                    <feFlood x="-.03" y="-.03" width="1.06" height="1.06" flood-color="#808080" result="neutral"/>
+                    <feImage x="0" y="-.25" width="1" height=".19" preserveAspectRatio="none"
+                      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%2064%22%20preserveAspectRatio%3D%22none%22%3E%0A%20%20%3Cdefs%3E%3Cfilter%20id%3D%22soft%22%20x%3D%22-10%25%22%20width%3D%22120%25%22%20y%3D%22-30%25%22%20height%3D%22160%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%220%202.6%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%0A%20%20%3Cpath%20d%3D%22M-8%2015%20Q100%2054%20208%2015%22%20fill%3D%22none%22%20stroke%3D%22%23008080%22%20stroke-width%3D%2213%22%20filter%3D%22url(%23soft)%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M-8%2023%20Q100%2062%20208%2023%22%20fill%3D%22none%22%20stroke%3D%22%23ff8080%22%20stroke-width%3D%226%22%20filter%3D%22url(%23soft)%22%2F%3E%0A%3C%2Fsvg%3E" result="roll">
+                      <animate id="booth-roll" attributeName="y" begin="indefinite" dur="18s" repeatCount="indefinite"
+                        values="-.25;-.25;1.12;-.25;-.25" keyTimes="0;.1;.22;.34;1"/>
+                    </feImage>
+                    <feComposite x="-.03" y="-.03" width="1.06" height="1.06" in="roll" in2="neutral" operator="over" result="map"/>
+                    <feDisplacementMap x="-.03" y="-.03" width="1.06" height="1.06"
+                      in="SourceGraphic" in2="map" scale=".044" xChannelSelector="R" yChannelSelector="G"/>
+                  </filter>
+                </defs>
               </svg>
+              <div class="customer" aria-hidden="true">
+                <svg viewBox="0 0 440 330" class="portrait-placeholder">
+                  <path class="coat" d="M90 310 Q96 211 171 192 L254 192 Q326 213 344 310Z" fill="#34494a"/>
+                  <path d="M150 198 L213 257 267 199 251 174 171 178Z" fill="#57695a"/>
+                  <path d="M170 185 L170 126 258 128 256 187 Q217 224 170 185Z" fill="#b78464"/>
+                  <path d="M146 149 Q125 52 206 50 Q287 49 273 156 L250 123 Q202 127 163 111 L162 158Z" fill="#332b2c"/>
+                  <path class="cap" d="M139 92 Q141 42 211 40 Q271 42 278 101 Q220 77 139 92Z" fill="#a36b46"/>
+                  <path d="M137 91 Q211 79 286 101" fill="none" stroke="#c0865a" stroke-width="10"/>
+                  <path d="M179 147 L188 147 M228 145 L236 145 M199 177 Q211 181 222 175" fill="none" stroke="#523a33" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M90 266 Q143 238 171 272 L161 292 91 300Z M325 267 Q279 244 254 276 L264 292 327 300Z" fill="#b78464"/>
+                </svg>
+                <div class="portrait-layers"></div>
+              </div>
               <div id="dialogue-caption" hidden>
                 <p id="counter-message" aria-hidden="true"></p>
                 <p id="accessible-dialogue" class="sr-only" aria-live="polite"></p>
@@ -102,7 +129,7 @@
             <svg id="yard-feed" viewBox="0 0 1009 165">
               <defs>
                 <clipPath id="yard-crop"><rect width="1009" height="165"/></clipPath>
-                <clipPath id="yard-booth-foreground"><rect x="625" y="77" width="70" height="60"/></clipPath>
+                <clipPath id="yard-booth-foreground"><rect x="631" y="73" width="70" height="60"/></clipPath>
                 <path id="yard-coat" d="M-1.5-13h3l1 1v2l-1 1H3l1 2v3H2.5v1.2h-5V-4H-4v-3l1-2h1.5l-1-1v-2z" fill="currentColor"/>
                 <g id="yard-person">
                   <path d="M-3 0h7v1h-7z" fill="#151a16" opacity=".28"/>
@@ -132,6 +159,40 @@
                   <use href="#yard-side-coat" transform="translate(-.1 -.55)"/>
                   <path d="M-2.1-5.3H.1l-.3 2.1L-2.1 0h-2v-1.3h1l1.2-2.1z M.1-5.3h2.1l.5 2.1.9 1.8h.9V0H2.3L.5-2.5z" fill="currentColor"/>
                 </g>
+                <path id="yard-coat-f" d="M-1.6-13h3.2l1.1 1v3l.8 1.1.5 2.9H2.4l.55 1.9h-5.9L-2.4-5H-4l.5-2.9.8-1.1v-3z" fill="currentColor"/>
+                <path id="yard-side-coat-f" d="M-1.4-13h2.6l1.25.95.05 1.25h.6v1H1.55v.8l.95 1.6.5 2.6H1.85l.45 1.3h-4.9l.4-1.4H-3v-2l1.15-1.9-.8-.8-.2-2.1z" fill="currentColor"/>
+                <g id="yard-person-f">
+                  <path d="M-3 0h7v1h-7z" fill="#151a16" opacity=".28"/>
+                  <use href="#yard-coat-f"/>
+                  <path d="M-2.3-3.4h1.8V0h-2.2v-1h.4z M.5-3.4h1.8V-1h.4v1H.5z" fill="currentColor"/>
+                </g>
+                <g id="yard-step-left-f">
+                  <path d="M-3 0h7v1h-7z" fill="#151a16" opacity=".28"/>
+                  <use href="#yard-coat-f" transform="translate(0 -.35)"/>
+                  <path d="M-2.4-4h1.9v4.75h-1.9z M.5-4h1.9v3.35H.5z" fill="currentColor"/>
+                </g>
+                <g id="yard-step-right-f">
+                  <path d="M-3 0h7v1h-7z" fill="#151a16" opacity=".28"/>
+                  <use href="#yard-coat-f" transform="translate(0 -.35)"/>
+                  <path d="M-2.4-4h1.9v3.35h-1.9z M.5-4h1.9v4.75H.5z" fill="currentColor"/>
+                </g>
+                <g id="yard-side-stand-f">
+                  <use href="#yard-side-coat-f"/>
+                  <path d="M-1.8-4.8h3.4V-1H3v1H-2.1v-1h.3z" fill="currentColor"/>
+                </g>
+                <g id="yard-side-step-a-f">
+                  <use href="#yard-side-coat-f" transform="translate(.2 -.35)"/>
+                  <path d="M-2.2-5.1H.2L-.2-2.2-2.4-.1H-4V-1.4h.9l1.7-1.9z M.1-5.1h2l.8 2.5.6 1.3h1V0H2.3L.6-2.2z" fill="currentColor"/>
+                </g>
+                <g id="yard-side-step-b-f">
+                  <use href="#yard-side-coat-f" transform="translate(-.1 -.55)"/>
+                  <path d="M-2.1-5.3H.1l-.3 2.1L-2.1 0h-2v-1.3h1l1.2-2.1z M.1-5.3h2.1l.5 2.1.9 1.8h.9V0H2.3L.5-2.5z" fill="currentColor"/>
+                </g>
+                <g id="yard-police-car">
+                  <use href="#yard-car"/>
+                  <path d="M-5-1H5V4H-5Z" fill="#b8bfba"/>
+                  <path d="M-2 0H2" stroke="#4c7292" stroke-width="1.6"/>
+                </g>
                 <g id="yard-car">
                   <rect x="-5.2" y="-10.7" width="12.2" height="24" rx="2.7" fill="#22241e" opacity=".38"/>
                   <rect x="-6" y="-12" width="12" height="23" rx="2.5" fill="currentColor" stroke="#292b27" stroke-width="1"/>
@@ -146,6 +207,11 @@
                 <pattern id="yard-scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
                   <path d="M0 0.5h4" stroke="#202820" stroke-opacity=".13"/>
                 </pattern>
+                <linearGradient id="yard-smoke-tone" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="-24">
+                  <stop stop-color="#d2ccbc" stop-opacity=".18"/>
+                  <stop offset=".35" stop-color="#d2ccbc" stop-opacity=".82"/>
+                  <stop offset="1" stop-color="#d2ccbc" stop-opacity="0"/>
+                </linearGradient>
                 <radialGradient id="yard-firelight">
                   <stop stop-color="#ffb553" stop-opacity=".72"/>
                   <stop offset="100%" stop-color="#ee6a31" stop-opacity="0"/>
@@ -153,26 +219,39 @@
               </defs>
               <g class="yard-picture" clip-path="url(#yard-crop)" aria-hidden="true">
                 <image href="./art/burn-yard-camera-01.png" width="1009" height="165"/>
-                <g id="yard-fire" transform="translate(459 64)">
-                  <ellipse rx="13" ry="6" fill="url(#yard-firelight)"/>
-                  <g class="yard-flame">
-                    <path d="M-6 0C-8-4-3-6-4-10C-1-9 0-6 1-5C3-8 3-10 2-14C8-10 8-4 6-1C4 2-4 2-6 0Z" fill="#f78c39"/>
-                    <path d="M-3 0C-4-3 0-5 0-8C4-6 5-2 3 0C2 1-2 1-3 0Z" fill="#ffe3a0"/>
+                <g transform="translate(6 -4)">
+                  <g transform="translate(459 64)">
+                    <path id="yard-smoke" opacity="0" fill="url(#yard-smoke-tone)"
+                      d="M-1 0 C1 -6 -4 -9 -2 -14 C-1 -19 3 -20 2 -25 C7 -20 3 -16 2 -13 C1 -9 4 -5 1 0Z"/>
+                    <g id="yard-fire" opacity="0">
+                      <ellipse rx="13" ry="6" fill="url(#yard-firelight)"/>
+                      <g class="yard-flame">
+                        <path d="M-6 0C-8-4-3-6-4-10C-1-9 0-6 1-5C3-8 3-10 2-14C8-10 8-4 6-1C4 2-4 2-6 0Z" fill="#f78c39"/>
+                        <path d="M-3 0C-4-3 0-5 0-8C4-6 5-2 3 0C2 1-2 1-3 0Z" fill="#ffe3a0"/>
+                      </g>
+                    </g>
                   </g>
+                  <g id="yard-street-traffic"></g>
+                  <g id="yard-line"></g>
+                  <use id="yard-operator" href="#yard-side-stand"/>
                 </g>
-                <g id="yard-street-traffic"></g>
-                <g id="yard-line"></g>
-                <use id="yard-operator" href="#yard-side-stand"/>
                 <image href="./art/burn-yard-camera-01.png" width="1009" height="165" clip-path="url(#yard-booth-foreground)"/>
-                <g id="yard-departures"></g>
-                <use id="yard-visitor" href="#yard-person"/>
+                <g transform="translate(6 -4)">
+                  <g id="yard-departures"></g>
+                  <g id="yard-inspector-actors"></g>
+                  <use id="yard-visitor" href="#yard-person"/>
+                </g>
               </g>
               <rect width="1009" height="165" fill="url(#yard-vignette)"/>
               <rect width="1009" height="165" fill="url(#yard-scanlines)"/>
-              <foreignObject x="622" y="77" width="72" height="37">
+              <g id="yard-shift-light" aria-hidden="true">
+                <circle class="shift-light-red" cx="689.53" cy="103.33" r="1.55" fill="#ff6954"/>
+                <circle class="shift-light-service" cx="694.1" cy="100.41" r="1.55" fill="currentColor"/>
+              </g>
+              <foreignObject x="628" y="73" width="72" height="37">
                 <button xmlns="http://www.w3.org/1999/xhtml" id="call-customer" class="yard-action" type="button" aria-label="Call next customer" hidden></button>
               </foreignObject>
-              <foreignObject x="26" y="18" width="72" height="60">
+              <foreignObject x="32" y="12" width="72" height="60">
                 <button xmlns="http://www.w3.org/1999/xhtml" id="counter-action" class="yard-action" type="button" aria-label="Go home" hidden></button>
               </foreignObject>
             </svg>
@@ -182,8 +261,8 @@
             <div id="document-surface" aria-label="Document surface">
               <div id="order-delivery" class="document-bay"><i id="hatch-slot" aria-hidden="true"></i></div>
               <div id="order-review" class="document-bay">
+                <button id="collection-sleeve" class="quiet" type="button" hidden>Take a sleeve</button>
                 <div id="collection-station" aria-label="District collection" hidden>
-                  <button id="collection-sleeve" class="quiet" type="button">Take a sleeve</button>
                   <div id="collection-slot">
                     <span class="filing-arrow" aria-hidden="true">➜</span>
                     <span>Slide filing here</span>
@@ -191,35 +270,69 @@
                   </div>
                   <p id="collection-guide" class="sr-only" role="status"></p>
                 </div>
-                <aside class="citation-printer" aria-label="District notice printer">
+                <aside id="citation-printer" class="citation-printer" aria-label="District notice printer">
                   <div class="printer-slot" aria-hidden="true">DISTRICT NOTICE PRINTER</div>
-                  <article id="citation" class="citation-slip" hidden>
-                    <span id="citation-code"></span>
-                    <strong id="citation-heading"></strong>
-                    <p id="citation-reason"></p>
-                    <span id="citation-balance"></span>
-                  </article>
                   <p id="citation-announcement" class="sr-only" role="status"></p>
                 </aside>
+                <template id="citation-template">
+                  <article class="desk-document citation-slip" aria-label="District notice">
+                    <span></span>
+                    <strong></strong>
+                    <p></p>
+                    <span></span>
+                  </article>
+                </template>
                 <button id="stamp-toggle" type="button" class="quiet" aria-label="Extend stamp rail" title="Extend stamp rail (A)" aria-keyshortcuts="A" aria-expanded="false" aria-controls="stamp-rail"><span aria-hidden="true"></span></button>
                 <div class="stamp-channel">
                   <div id="stamp-rail" class="stamp-track" inert>
-                    <span id="stamp-impact" aria-hidden="true"></span>
-                    <button id="stamp" type="button" aria-label="Pull stamp handle (S)" disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">CERTIFY <kbd>S</kbd></span></button>
+                    <div class="stamp-bay stamp-bay-spare" id="reject-bay">
+                      <span id="reject-impact" class="stamp-guide" aria-hidden="true" hidden></span>
+                      <button id="reject-stamp" type="button" class="desk-stamp" aria-label="Reject disposal request" hidden disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">REJECT</span></button>
+                    </div>
+                    <div class="stamp-bay">
+                      <span id="stamp-impact" class="stamp-guide" aria-hidden="true"></span>
+                      <button id="stamp" class="desk-stamp" type="button" aria-label="Pull stamp handle (S)" disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">CERTIFY <kbd>S</kbd></span></button>
+                    </div>
                   </div>
                 </div>
               </div>
               <aside id="desk-register" class="desk-document desk-manual" aria-labelledby="disposal-rules-title" hidden>
                 <span class="desk-index">DISTRICT 04 · OPERATOR COPY</span>
                 <strong id="disposal-rules-title">Disposal rules</strong>
-                <ol>
-                  <li>Receive the load.</li>
-                  <li>Check for blue-sealed sheets. See the collection rule below.</li>
-                  <li>Process the remaining items as listed.</li>
-                  <li>Certify and return the receipt.</li>
-                </ol>
-                <p class="manual-seal"><b>Blue-sealed sheets</b><br>Sleeve and file for district collection.</p>
+                <section class="manual-page">
+                  <h3>Processing a load</h3>
+                  <ol>
+                    <li>Receive the load.</li>
+                    <li>Check for blue-sealed sheets.</li>
+                    <li data-rule-day="1" hidden>Check the disposal request against the load. Return unlisted items, except blue-sealed sheets.</li>
+                    <li>Process the remaining items as listed.</li>
+                    <li>Certify and return the receipt.</li>
+                  </ol>
+                </section>
+                <section class="manual-page" hidden>
+                  <h3>Blue-sealed sheets</h3>
+                  <p class="manual-seal">Set them aside. Sleeve and file them for district collection.</p>
+                </section>
+                <section class="manual-page" id="passport-rule" data-rule-day="2" hidden>
+                  <h3>Passports</h3>
+                  <ul>
+                    <li>Require a valid passport. Match its name and ID to the request, check it has not expired, and confirm today’s request date.</li>
+                    <li>Show these rules if the passport is missing.</li>
+                    <li>For missing or invalid papers, stamp Reject on the request and return the paperwork and intact load.</li>
+                  </ul>
+                </section>
+                <nav class="manual-pagination" aria-label="Disposal rules pages">
+                  <button id="rules-prev" type="button" aria-label="Previous page">‹</button>
+                  <span id="rules-page" aria-live="polite"></span>
+                  <button id="rules-next" type="button" aria-label="Next page">›</button>
+                </nav>
               </aside>
+              <section id="transcript" class="desk-document ledger-book" aria-label="Booth transcript" hidden>
+                <h2>Booth transcript</h2>
+                <p id="transcript-speaker" hidden></p>
+                <p id="transcript-empty">No dialogue yet.</p>
+                <ol id="transcript-lines"></ol>
+              </section>
               <section id="ledger" class="desk-document ledger-book" aria-label="Shift ledger" hidden>
                 <h2>Shift ledger</h2>
                 <div class="ledger-pages">
@@ -227,12 +340,43 @@
                   <p id="ledger-total"></p>
                 </div>
               </section>
-              <article id="work-order" class="desk-document receipt customer-paper" data-compact="true" aria-label="Disposal order" hidden>
+              <article id="inspector-badge" class="desk-document receipt customer-paper" data-compact="true" aria-label="Chief inspector credential" tabindex="0" hidden>
+                <span class="paper-preview" aria-hidden="true">★ Inspector</span>
+                <header><span aria-hidden="true">★</span> District Inspectorate</header>
+                <strong>Chief Inspector Voss</strong>
+                <span>Inspector license · Class A oversight</span>
+                <span>Badge No. D04-001</span>
+                <span class="inspector-card-ink">DISTRICT CERTIFIED</span>
+              </article>
+              <article id="work-order" class="desk-document receipt customer-paper" data-compact="true" tabindex="0" aria-label="Disposal order" hidden>
                 <span class="paper-preview" aria-hidden="true">Order</span>
-                <span class="receipt-station">D04 · DISPOSAL ORDER</span>
+                <span id="work-order-title" class="receipt-station">D04 · DISPOSAL ORDER</span>
                 <strong id="work-order-customer"></strong>
+                <span id="request-id" hidden></span>
+                <span id="request-date" hidden></span>
                 <span id="work-order-load"></span>
+                <span id="reject-ink" class="receipt-ink" hidden>D04 · REJECTED</span>
                 <span id="work-order-request"></span>
+              </article>
+              <article id="passport" class="desk-document receipt customer-paper" data-compact="true" aria-label="District passport" tabindex="0" hidden>
+                <span class="paper-preview passport-cover" aria-hidden="true"><b>04</b>Passport</span>
+                <header class="passport-header">
+                  <span class="passport-crest" aria-hidden="true">04</span>
+                  <span class="passport-issuer">District 04</span>
+                  <strong>Passport</strong>
+                </header>
+                <div class="passport-info-page">
+                  <div class="passport-identity">
+                    <strong id="passport-name"></strong>
+                    <div id="passport-photo" aria-hidden="true"></div>
+                    <dl class="passport-details">
+                      <div><dt><abbr title="Date of birth">DOB</abbr></dt><dd id="passport-birth"></dd></div>
+                      <div><dt><abbr title="Sex">SEX</abbr></dt><dd id="passport-gender"></dd></div>
+                      <div><dt><abbr title="Expiration date">EXP</abbr></dt><dd id="passport-expiry"></dd></div>
+                    </dl>
+                  </div>
+                  <div class="passport-number"><span>Passport No.</span><strong id="passport-id"></strong></div>
+                </div>
               </article>
               <article id="desk-seal" class="desk-document seal-sheet" aria-label="Blue-sealed document" aria-describedby="collection-guide" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown" tabindex="0" hidden>
                 <span class="receipt-station">D04 · DISTRICT RECORD</span>
@@ -249,7 +393,7 @@
                 <span class="paper-preview" aria-hidden="true">Receipt</span>
                 <span class="receipt-station">D04 · DISPOSAL RECEIPT</span>
                 <span class="receipt-stamp-box" aria-hidden="true">Stamp here</span>
-                <span id="ink-mark" hidden>D04 · CERTIFIED</span>
+                <span id="ink-mark" class="receipt-ink" hidden>D04 · CERTIFIED</span>
                 <span id="receipt-id"></span><strong id="receipt-load"></strong><span id="receipt-result"></span>
               </div>
               <span id="paper-handoff-label" aria-hidden="true" hidden>Give</span>
@@ -257,6 +401,12 @@
             <div class="desk-lower">
               <div class="desk-intake">
                 <button class="intake-well" id="take-load" type="button" disabled>
+                  <span id="intake-back-key" aria-hidden="true" hidden>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path d="M20 3 4 12l16 9Z"/>
+                    </svg>
+                    <kbd>Q</kbd>
+                  </span>
                   <span id="intake-load" data-empty="true">
                     <span class="intake-object" aria-hidden="true"></span>
                     <span id="intake-label"></span>
@@ -274,6 +424,12 @@
                     <time id="desk-time" class="sr-only" datetime="08:00">08:00</time>
                   </div>
                   <button id="register-dock" class="book-slot" type="button" aria-label="Disposal rules" title="Disposal rules" aria-expanded="false" aria-controls="desk-register"></button>
+                  <button id="transcript-dock" class="book-slot" type="button" aria-label="Booth transcript" title="Booth transcript" aria-expanded="false" aria-controls="transcript">
+                    <svg class="transcript-microphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+                      <rect x="9" y="3" width="6" height="11" rx="3"/>
+                      <path d="M6 11a6 6 0 0 0 12 0M12 17v4m-3 0h6"/>
+                    </svg>
+                  </button>
                   <button id="ledger-dock" class="book-slot" type="button" aria-label="Shift ledger" title="Shift ledger" aria-expanded="false" aria-controls="ledger"></button>
                   <button id="receipt-printer" type="button" aria-label="Print receipt" aria-controls="receipt" disabled>
                     <span class="receipt-printer-mouth" aria-hidden="true"></span>
@@ -301,6 +457,7 @@
           </div>
           <div class="burner-slot-actions">
             <button id="drop" type="button"><kbd>C</kbd> Drop</button>
+            <button id="return-selected" type="button" class="quiet" hidden><kbd>V</kbd> Return</button>
             <button id="tip-box" class="quiet" type="button" hidden>Tip whole carton</button>
           </div>
         </div>
@@ -320,6 +477,22 @@
           <strong>Set aside</strong><div id="tray-items"></div>
           <button id="tray-action" type="button" class="quiet" hidden aria-label="Return blue-sealed sheet to burner" title="Return blue-sealed sheet to burner">Blue seal · at bench</button>
         </aside>
+        <aside id="return-tray" aria-label="Return tray" hidden>
+          <div class="return-tray-header">
+            <strong>Return to customer</strong>
+            <button id="drop-returned" type="button" class="quiet" disabled aria-label="Hold for one second to drop all returned items into the burner">Drop all</button>
+          </div>
+          <div id="return-items"></div>
+        </aside>
+        <div id="item-controls" aria-hidden="true" hidden>
+          <div class="item-controls-burn"><kbd>Left click</kbd> Burn</div>
+          <div class="item-controls-move">
+            <div><kbd>Ctrl + click</kbd> Move</div>
+            <div><kbd>Shift + click</kbd> Pick up</div>
+            <div id="item-controls-return"><kbd>V</kbd> <span id="item-controls-action">Return</span></div>
+            <div><kbd>D</kbd> Hide HUD</div>
+          </div>
+        </div>
         <p id="inspection" class="muted"></p>
         <p id="job-status" class="sr-only" role="status"></p>
         <p id="burner-help" class="help">Hold left click to light · Shift-click to lift · Ctrl-click to slide</p>
