@@ -4,57 +4,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dialogue Registry · Burn Inc.</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#1f211b;color:#eee4cb;font:1rem/1.55 system-ui,sans-serif}main{max-width:42rem;margin:6vh auto;padding:1.5rem}h1{margin:.25rem 0}a{color:#dec291}label{display:block;margin-top:1.4rem;font-weight:700}small{display:block;color:#d0c4a7}textarea{display:block;width:100%;margin:.4rem 0 0;background:#292d24;color:inherit;border:1px solid #706752;padding:.7rem;font:inherit;min-height:5rem}button{margin:1rem .5rem 0 0;padding:.65rem .95rem;background:#dbc197;color:#251e14;border:0;border-radius:3px;font:inherit;cursor:pointer}
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1f211b; color: #eee4cb; font: 1rem/1.55 system-ui, sans-serif; }
+  main { max-width: 48rem; margin: 4vh auto; padding: 1.5rem; }
+  h1 { margin: .25rem 0; }
+  a { color: #dec291; }
+  iframe { display: block; width: 100%; height: 53rem; margin-top: 1rem; border: 0; }
 </style>
 <main>
-<a href="../">Burn Inc. playtest</a>
-<h1>Dialogue Registry</h1>
-<p>Write a line for any of the three moments. Copy or download your suggestions, then send them to the person who shared this page.</p>
-<form>
-<label for="arrival">Arrival</label>
-<small id="a">Example: “Recycling sent me here. I’ve got the signed request.”</small>
-<textarea id="arrival" aria-describedby="a" maxlength="500"></textarea>
-<label for="acceptance">Acceptance</label>
-<small id="b">Example: “Thanks. That saves me another trip.”</small>
-<textarea id="acceptance" aria-describedby="b" maxlength="500"></textarea>
-<label for="refusal">Refusal</label>
-<small id="c">Example: “Fine. I’ll sort out the paperwork and come back.”</small>
-<textarea id="refusal" aria-describedby="c" maxlength="500"></textarea>
-<button type="button" id="copy">Copy suggestions</button>
-<button type="button" id="download">Download suggestions</button>
-<p role="status"></p>
-</form>
-<script>
-const status = document.querySelector('[role=status]');
-function suggestions() {
-  const lines = ['arrival','acceptance','refusal'].flatMap((id) => {
-    const line = document.getElementById(id).value.trim();
-    return line ? [id[0].toUpperCase() + id.slice(1) + '\n' + line] : [];
-  });
-  status.textContent = lines.length ? '' : 'Write at least one line first.';
-  return lines.join('\n\n');
-}
-document.getElementById('copy').onclick = async () => {
-  const text = suggestions();
-  if (!text) return;
-  try {
-    await navigator.clipboard.writeText(text);
-    status.textContent = 'Copied. Paste your suggestions into a message to share them.';
-  } catch {
-    status.textContent = 'Clipboard unavailable. Use Download suggestions instead.';
-  }
-};
-document.getElementById('download').onclick = () => {
-  const text = suggestions();
-  if (!text) return;
-  const url = URL.createObjectURL(new Blob([text], {type:'text/plain;charset=utf-8'}));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'burn-inc-dialogue.txt';
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  status.textContent = 'Send the downloaded file to share your suggestions.';
-};
-</script>
+  <a href="../">Burn Inc. playtest</a>
+  <h1>Dialogue Registry</h1>
+  <p>Suggest a line for a walk-in customer. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpTJ-BfpKNunuIkpCPFAO1mRlQUJRD_8kNDCmHyl_rZZtppg/viewform">Open the form directly</a>.</p>
+  <iframe title="Burn Inc. dialogue suggestions" src="https://docs.google.com/forms/d/e/1FAIpQLSdpTJ-BfpKNunuIkpCPFAO1mRlQUJRD_8kNDCmHyl_rZZtppg/viewform?embedded=true"></iframe>
 </main>
 </html>
