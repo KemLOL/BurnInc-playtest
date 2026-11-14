@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Burn Inc. · District Burn Counter</title>
-    <script type="module" crossorigin src="./assets/index-8o-pk1KD.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-GGNMUfb8.css">
+    <script type="module" crossorigin src="./assets/index-5r6JqVnd.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-PQSu0E74.css">
   </head>
   <body>
     <main id="game" aria-label="Burn Inc. district burn counter">
@@ -287,7 +287,7 @@
                   <div id="stamp-rail" class="stamp-track" inert>
                     <div class="stamp-bay stamp-bay-spare" id="reject-bay">
                       <span id="reject-impact" class="stamp-guide" aria-hidden="true" hidden></span>
-                      <button id="reject-stamp" type="button" class="desk-stamp" aria-label="Reject disposal request (S)" aria-keyshortcuts="S" hidden disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">REJECT <kbd>S</kbd></span></button>
+                      <button id="reject-stamp" type="button" class="desk-stamp" aria-label="Reject receipt (S)" aria-keyshortcuts="S" hidden disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">REJECT <kbd>S</kbd></span></button>
                     </div>
                     <div class="stamp-bay">
                       <span id="stamp-impact" class="stamp-guide" aria-hidden="true"></span>
@@ -319,7 +319,7 @@
                   <ul>
                     <li>Require a valid passport. Match its name and ID to the request, check it has not expired, and confirm today’s request date.</li>
                     <li>Show these rules if the passport is missing.</li>
-                    <li>For missing or invalid papers, stamp Reject on the request and return the paperwork and intact load.</li>
+                    <li>For missing or invalid papers, reject the load at the hatch or return it whole if already accepted. Print the receipt and stamp it Reject.</li>
                   </ul>
                 </section>
                 <nav class="manual-pagination" aria-label="Disposal rules pages">
@@ -356,8 +356,9 @@
                 <span id="request-id" hidden></span>
                 <span id="request-date" hidden></span>
                 <span id="work-order-load"></span>
-                <span id="reject-ink" class="receipt-ink" hidden>D04 · REJECTED</span>
+                
                 <span id="work-order-request"></span>
+                
               </article>
               <article id="passport" class="desk-document receipt customer-paper" data-compact="true" aria-label="District passport" tabindex="0" hidden>
                 <span class="paper-preview passport-cover" aria-hidden="true"><b>04</b>Passport</span>
@@ -394,14 +395,16 @@
                 <span class="paper-preview" aria-hidden="true">Receipt</span>
                 <span class="receipt-station">D04 · DISPOSAL RECEIPT</span>
                 <span class="receipt-stamp-box" aria-hidden="true">Stamp here</span>
+                <span id="reject-ink" class="receipt-ink" hidden>D04 · REJECTED</span>
                 <span id="ink-mark" class="receipt-ink" hidden>D04 · CERTIFIED</span>
                 <span id="receipt-id"></span><strong id="receipt-load"></strong><span id="receipt-result"></span>
               </div>
+              <button id="jam-paper" type="button" aria-label="Carry jammed receipts to the receiving hatch" hidden></button>
               <span id="paper-handoff-label" aria-hidden="true" hidden>Give</span>
             </div>
             <div class="desk-lower">
               <div class="desk-intake">
-                <button class="intake-well" id="take-load" type="button" disabled>
+                <div class="intake-controls"><button class="intake-well" id="take-load" type="button" disabled>
                   <span id="intake-back-key" aria-hidden="true" hidden>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                       <path d="M20 3 4 12l16 9Z"/>
@@ -414,6 +417,7 @@
                     <span class="intake-prompt">Take to burner →</span>
                   </span>
                 </button>
+                <button id="intake-return-action" class="quiet" type="button" hidden></button></div>
                 <div class="desk-actions"><button id="open-supplies" class="quiet" type="button" hidden>Supplies</button></div>
                 <button id="buy-hearth" class="quiet" type="button" hidden>Install wide hearth · 14 credits</button>
               </div>
