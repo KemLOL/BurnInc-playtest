@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Burn Inc. · District Burn Counter</title>
-    <script type="module" crossorigin src="./assets/index-BIOkWvpt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-PQSu0E74.css">
+    <script type="module" crossorigin src="./assets/index-BFolBCT6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-C__r4C8a.css">
   </head>
   <body>
     <main id="game" aria-label="Burn Inc. district burn counter">
@@ -300,7 +300,7 @@
               </div>
               <aside id="desk-register" class="desk-document desk-manual" aria-labelledby="disposal-rules-title" hidden>
                 <span class="desk-index">DISTRICT 04 · OPERATOR COPY</span>
-                <strong id="disposal-rules-title">Disposal rules</strong>
+                <strong id="disposal-rules-title">Rules and reports</strong>
                 <section class="manual-page">
                   <h3>Processing a load</h3>
                   <ol>
@@ -323,7 +323,12 @@
                     <li>For missing or invalid papers, reject the load at the hatch or return it whole if already accepted. Print the receipt and stamp it Reject.</li>
                   </ul>
                 </section>
-                <nav class="manual-pagination" aria-label="Disposal rules pages">
+                <section class="manual-page" data-rule-day="4" hidden>
+                  <h3>District report · 11 April</h3>
+                  <p>A leak of official stamp designs has enabled forged disposal receipts.</p>
+                  <p data-rule-day="4"><strong>New requirement</strong> Sign every disposal receipt by hand as well as stamping it Certify or Reject. Unsigned receipts incur a violation.</p>
+                </section>
+                <nav class="manual-pagination" aria-label="Rules and reports pages">
                   <button id="rules-prev" type="button" aria-label="Previous page">‹</button>
                   <span id="rules-page" aria-live="polite"></span>
                   <button id="rules-next" type="button" aria-label="Next page">›</button>
@@ -349,6 +354,14 @@
                 <span>Inspector license · Class A oversight</span>
                 <span>Badge No. D04-001</span>
                 <span class="inspector-card-ink">DISTRICT CERTIFIED</span>
+              </article>
+              <article id="signature-specimen" class="desk-document receipt customer-paper" data-compact="true" hidden>
+                <span class="paper-preview" aria-hidden="true">Signature record</span>
+                <strong>D04 · OPERATOR SIGNATURE RECORD</strong>
+                <span>District specimen · Class A operator</span>
+                <span>Operator signature</span>
+                <svg id="specimen-pen" viewBox="0 0 600 170" preserveAspectRatio="none" aria-label="Draw your specimen signature"></svg>
+                <span>District Inspectorate · Official record</span>
               </article>
               <article id="work-order" class="desk-document receipt customer-paper" data-compact="true" tabindex="0" aria-label="Disposal order" hidden>
                 <span class="paper-preview" aria-hidden="true">Order</span>
@@ -399,6 +412,11 @@
                 <span id="reject-ink" class="receipt-ink" hidden>D04 · REJECTED</span>
                 <span id="ink-mark" class="receipt-ink" hidden>D04 · CERTIFIED</span>
                 <span id="receipt-id"></span><strong id="receipt-load"></strong><span id="receipt-result"></span>
+                <span id="receipt-signature-area" hidden>
+                  <span>Operator signature</span>
+                  <svg id="receipt-signature" viewBox="0 0 600 170" preserveAspectRatio="none" aria-label="Sign here by drawing with the pointer"></svg>
+                  <span class="signature-caption">Sign here</span>
+                </span>
               </div>
               <button id="jam-paper" type="button" aria-label="Carry jammed receipts to the receiving hatch" hidden></button>
               <span id="paper-handoff-label" aria-hidden="true" hidden>Give</span>
@@ -429,7 +447,7 @@
                     <span id="desk-date">Day 01</span>
                     <time id="desk-time" class="sr-only" datetime="08:00">08:00</time>
                   </div>
-                  <button id="register-dock" class="book-slot" type="button" aria-label="Disposal rules" title="Disposal rules" aria-expanded="false" aria-controls="desk-register"></button>
+                  <button id="register-dock" class="book-slot" type="button" aria-label="Rules and reports" title="Rules and reports" aria-expanded="false" aria-controls="desk-register"></button>
                   <button id="transcript-dock" class="book-slot" type="button" aria-label="Booth transcript" title="Booth transcript" aria-expanded="false" aria-controls="transcript">
                     <svg class="transcript-microphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
                       <rect x="9" y="3" width="6" height="11" rx="3"/>
