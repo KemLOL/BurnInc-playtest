@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Burn Inc. · District Burn Counter</title>
-    <script type="module" crossorigin src="./assets/index-CJC7Uvdt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Dvju_WDE.css">
+    <script type="module" crossorigin src="./assets/index-CLQC1jhp.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DvHUp0-G.css">
   </head>
   <body>
     <main id="game" aria-label="Burn Inc. district burn counter">
@@ -288,7 +288,7 @@
                 </template>
                 <button id="stamp-toggle" type="button" class="quiet" aria-label="Extend stamp rail" title="Extend stamp rail (A)" aria-keyshortcuts="A" aria-expanded="false" aria-controls="stamp-rail"><span aria-hidden="true"></span><kbd aria-hidden="true">A</kbd></button>
                 <div class="stamp-channel">
-                  <div id="stamp-rail" class="stamp-track" inert>
+                  <div id="stamp-rail" class="stamp-track" inert><span class="stamp-back-rail" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stamp-housing-art" aria-hidden="true"></span>
                     <div class="stamp-bay stamp-bay-spare" id="reject-bay">
                       <span id="reject-impact" class="stamp-guide" aria-hidden="true" hidden></span>
                       <button id="reject-stamp" type="button" class="desk-stamp" aria-label="Reject receipt (S)" aria-keyshortcuts="S" hidden disabled><span class="stamp-knob" aria-hidden="true"></span><span class="stamp-face" aria-hidden="true">REJECT <kbd>S</kbd></span></button>
@@ -450,7 +450,7 @@
                     <span id="desk-date">Day 01</span>
                     <time id="desk-time" class="sr-only" datetime="08:00">08:00</time>
                   </div>
-                  <button id="register-dock" class="book-slot" type="button" aria-label="Rules and reports" title="Rules and reports" aria-expanded="false" aria-controls="desk-register"></button>
+                  <div class="book-storage-rack" role="group" aria-label="Desk booklet storage"><button id="register-dock" class="book-slot" type="button" aria-label="Rules and reports" title="Rules and reports" aria-expanded="false" aria-controls="desk-register"></button>
                   <button id="transcript-dock" class="book-slot" type="button" aria-label="Booth transcript" title="Booth transcript" aria-expanded="false" aria-controls="transcript">
                     <svg class="transcript-microphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
                       <rect x="9" y="3" width="6" height="11" rx="3"/>
@@ -458,7 +458,7 @@
                     </svg>
                   </button>
                   <button id="ledger-dock" class="book-slot" type="button" aria-label="Shift ledger" title="Shift ledger" aria-expanded="false" aria-controls="ledger"></button>
-                  <button id="receipt-printer" type="button" aria-label="Print receipt" aria-controls="receipt" disabled>
+                  </div><button id="receipt-printer" type="button" aria-label="Print receipt" aria-controls="receipt" disabled>
                     <span class="receipt-printer-mouth" aria-hidden="true"></span>
                     <span class="receipt-printer-wiring" aria-hidden="true"></span>
                     <span class="receipt-printer-switch" aria-hidden="true"></span>
